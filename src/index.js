@@ -1,28 +1,42 @@
-/**
- *
- */
+import "./styles.css";
 
-// var val1 = "var変数";
-// console.log(val1);
+const onClickAdd = () => {
+  // テキストボックスの値を取得し、初期化する
+  const inputText = document.getElementById("add-text").value;
+  document.getElementById("add-text").value = "";
 
-// const name = "seki";
-// const age = 28;
+  //div生成
+  const div = document.createElement("div");
+  div.className = "list-row";
 
-// const message1 = `私の名前は${name}です。`;
-// console.log(message1);
+  // liタグ生成
+  const li = document.createElement("li");
+  li.innerText = inputText; // button
 
-// const myProfile = {
-//   name: "じゃけぇ",
-//   age: 28
-// };
+  const completeButton = document.createElement("button");
+  completeButton.innerText = "完了";
+  completeButton.addEventListener("click", () => {
+    //　押下された完了ボタンの親タグを未完了リストから完了リストへ
+    const incompleteTarget = completeButton.parentNode;
+    document.getElementById("complete-list").appendChild(incompleteTarget);
+  });
 
-// const message1 = `名前は${myProfile.name}です。年齢は${myProfile.age}です。`;
-// console.log(message1);
+  const deleteButton = document.createElement("button");
+  deleteButton.innerText = "削除";
+  deleteButton.addEventListener("click", () => {
+    // 押下された削除ボタンの親タグを未完了リストから削除
+    const deleteTarget = deleteButton.parentNode;
+    document.getElementById("incomplete-list").removeChild(deleteTarget);
+  });
 
-// const { name, age } = myProfile;
-// const message2 = `名前は${name}です。年齢は${age}です。`;
-// console.log("222", message2);
+  // divタグの子要素に各要素を設定
+  div.appendChild(li);
+  div.appendChild(completeButton);
+  div.appendChild(deleteButton);
 
-const sayHello = (name = "ゲスト") => console.log(`こんにちは！${name}さん`);
+  document.getElementById("incomplete-list").appendChild(div);
+};
 
-sayHello("あああ");
+document
+  .getElementById("add-button")
+  .addEventListener("click", () => onClickAdd());
